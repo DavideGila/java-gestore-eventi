@@ -1,8 +1,10 @@
 package org.learning.javagestoreeventi;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Concerto extends Evento{
     // ATTRIBUTI
@@ -33,4 +35,26 @@ public class Concerto extends Evento{
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    // METODI
+    public String getFormattedDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return getDate().format(formatter);
+    }
+
+    public String getFormattedTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return getTime().format(formatter);
+    }
+
+    public String getFormattedPrice() {
+        DecimalFormat decimalFormat = new DecimalFormat("##,##€");
+        return decimalFormat.format(price);
+    }
+
+    @Override
+    public String toString() {
+        return getFormattedDate() + " " + getFormattedTime() + " - " + getTitle() + " - " + getFormattedPrice();
+    }
+
 }
