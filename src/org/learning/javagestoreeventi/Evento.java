@@ -52,27 +52,27 @@ public class Evento {
     }
 
     // METODI
-    public void prenota(int postiDaPrenotare) throws IllegalArgumentException {
+    public void book(int placesToReserve) throws IllegalArgumentException {
         // fatto la stessa eccezione della data nel costruttore poichè qui è necessario per gestire situazioni
         // in cui l'evento è stato creato per una data futura, ma al momento di eseguire la funzione, la data è
         // diventata passata
         if (this.date.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("L'evento è già passato, non è possibile prenotare.");
         }
-        if (this.numberOfPlacesBooked + postiDaPrenotare > this.locationCapacity) {
+        if (this.numberOfPlacesBooked + placesToReserve > this.locationCapacity) {
             throw new IllegalArgumentException("Non ci sono abbastanza posti disponibili.");
         }
-        this.numberOfPlacesBooked += postiDaPrenotare;
+        this.numberOfPlacesBooked += placesToReserve;
     }
 
-    public void disdici(int postiDaDisdire) throws IllegalArgumentException {
+    public void cancel(int placesToDisorder) throws IllegalArgumentException {
         if (this.date.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("L'evento è già passato, non è possibile disdire.");
         }
-        if (postiDaDisdire > this.numberOfPlacesBooked) {
+        if (placesToDisorder > this.numberOfPlacesBooked) {
             throw new IllegalArgumentException("Non ci sono abbastanza posti prenotati da disdire.");
         }
-        this.numberOfPlacesBooked -= postiDaDisdire;
+        this.numberOfPlacesBooked -= placesToDisorder;
     }
 
     @Override
