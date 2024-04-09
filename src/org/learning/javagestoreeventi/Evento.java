@@ -26,5 +26,29 @@ public class Evento {
 
     // GETTER E SETTER
 
+    public String getTitle() {
+        return title;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public int getLocationCapacity() {
+        return locationCapacity;
+    }
+
+    public int getNumberOfPlacesBooked() {
+        return numberOfPlacesBooked;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     // METODI
 }
