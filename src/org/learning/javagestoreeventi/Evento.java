@@ -1,6 +1,7 @@
 package org.learning.javagestoreeventi;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Evento {
     // ATTRIBUTI
@@ -51,4 +52,33 @@ public class Evento {
     }
 
     // METODI
+    public void prenota(int postiDaPrenotare) throws IllegalArgumentException {
+        // fatto la stessa eccezione della data nel costruttore poichè qui è necessario per gestire situazioni
+        // in cui l'evento è stato creato per una data futura, ma al momento di eseguire la funzione, la data è
+        // diventata passata
+        if (this.date.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("L'evento è già passato, non è possibile prenotare.");
+        }
+        if (this.numberOfPlacesBooked + postiDaPrenotare > this.locationCapacity) {
+            throw new IllegalArgumentException("Non ci sono abbastanza posti disponibili.");
+        }
+        this.numberOfPlacesBooked += postiDaPrenotare;
+    }
+
+    public void disdici(int postiDaDisdire) throws IllegalArgumentException {
+        if (this.date.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("L'evento è già passato, non è possibile disdire.");
+        }
+        if (postiDaDisdire > this.numberOfPlacesBooked) {
+            throw new IllegalArgumentException("Non ci sono abbastanza posti prenotati da disdire.");
+        }
+        this.numberOfPlacesBooked -= postiDaDisdire;
+    }
+
+    @Override
+    public String toString() {
+        // crea un formattatore di date basato su un pattern specificato come stringa
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return this.date.format(formatter) + " - " + this.title;
+    }
 }
